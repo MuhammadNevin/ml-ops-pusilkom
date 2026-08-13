@@ -59,8 +59,11 @@ with mlflow.start_run(run_name=run_name) as run:
         model.predict_proba(X_test)[:, 1]
     )
 
-    with open("auc.txt", "w") as f:
-        f.write(str(auc))
+    FOLDER_PATH = "output/metric"
+    # name file auc with parameters
+    FILE_NAME = f"auc_n{n_estimators}_depth{max_depth}.txt"
+    with open(f"{FOLDER_PATH}/{FILE_NAME}", "w") as f:
+        f.write(f"AUC: {auc:.4f}\n")
 
     mlflow.log_metric("auc", auc)
 
@@ -69,7 +72,7 @@ with mlflow.start_run(run_name=run_name) as run:
     # Simpan model ke MLflow
     mlflow.sklearn.log_model(
         sk_model=model,
-        name="model"
+        name=f"RandomForest_n{n_estimators}_depth{max_depth}"
     )
     print("Model berhasil dicatat ke MLflow.")
 
