@@ -33,3 +33,6 @@ Thumbs.db
 *.tmp
 
 get-pip.py
+/train.csv
+
+train.csv
